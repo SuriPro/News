@@ -6,11 +6,11 @@ import com.suri.news.model.News
 
 class NewsRepository(private val newsDao: NewsDao) {
 
-    fun insertNews(user: List<News>) {
-        newsDao.insertNews(user)
+    fun insertNews(news: List<News>) {
+        newsDao.insertNews(news)
     }
 
-    fun getNews(): MutableList<News> {
-        return newsDao.getNews()
+    fun getNewsCount():  Int {
+        return newsDao.getNewsCount()
     }
 }

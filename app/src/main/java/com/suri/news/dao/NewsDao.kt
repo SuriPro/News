@@ -10,9 +10,12 @@ import com.suri.news.model.News
 interface NewsDao {
 
     @Insert(onConflict = REPLACE)
-    fun insertNews(user: List<News>)
+    fun insertNews(news: List<News>)
 
-    @Query("SELECT * FROM News")
-    fun getNews(): MutableList<News>
+    @Query("SELECT * FROM News LIMIT :limit OFFSET :offset")
+    fun getNews(limit : Int, offset : Int,): MutableList<News>
+
+    @Query("SELECT COUNT(id) FROM News ")
+    fun getNewsCount(): Int
 
 }

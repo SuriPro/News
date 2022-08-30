@@ -1,17 +1,26 @@
 package com.suri.news.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.filter
 import com.suri.news.R
 import com.suri.news.adapter.NewsListAdapter
+import com.suri.news.adapter.NewsLoadStateAdapter
 import com.suri.news.databinding.ActivityNewsBinding
 import com.suri.news.view_model.MyViewModelFactory
 import com.suri.news.view_model.NewsViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NewsActivity : AppCompatActivity() {
 
@@ -21,32 +30,56 @@ class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= DataBindingUtil.setContentView(this, R.layout.activity_news)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_news)
+
+        binding.txtDate.text = SimpleDateFormat("EEEE dd, MMM yyyy", Locale.getDefault()).format(Date())
+
+        val adapter = NewsListAdapter(this)
+        binding.recycle.adapter = adapter.withLoadStateFooter(
+            NewsLoadStateAdapter()
+        )
 
         viewModel = ViewModelProvider(
             this,
-            MyViewModelFactory(this, "NEWS_VM")
-        ).get(NewsViewModel::class.java)
+            MyViewModelFactory(this, "NEWS_VM", adapter)
+        )[NewsViewModel::class.java]
 
-        viewModel.getError().observe(this, Observer {
+        viewModel.getError().observe(this) {
             Toast.makeText(applicationContext, it, Toast.LENGTH_LONG).show()
-        })
+        }
 
-        val adapter = NewsListAdapter(emptyList(),this)
-        binding.recycle.adapter = adapter
-
-        viewModel.news.observe(this) {
-            if(it!=null) {
-                adapter.setData(it)
-                adapter.notifyDataSetChanged()
+        lifecycleScope.launch {
+            viewModel.data.collectLatest {
+                adapter.submitData(it)
             }
         }
-        binding.viewModel=viewModel
+
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.e("EditText Changed", "" + s)
+                val str=s.toString()
+                lifecycleScope.launch {
+                    viewModel.data.collect {
+
+                        adapter.submitData(if (str.isEmpty()) it else it.filter { news ->
+                            news.title.contains(str, true) or news.author.contains(str,true)
+                        })
+
+                    }
+                }
+            }
+        })
+
+        binding.viewModel = viewModel
     }
 
     fun onNewsClicked(url: String) {
-        val intent=Intent(this,WebviewActivity::class.java)
-        intent.putExtra("URL",url)
+        val intent = Intent(this, WebviewActivity::class.java)
+        intent.putExtra("URL", url)
         startActivity(intent)
     }
 }

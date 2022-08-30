@@ -26,14 +26,14 @@
             <ImageView
                 android:id="@+id/thump"
                 android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_100sdp"
+                android:layout_height="0dp"
                 android:contentDescription="@string/todo"
                 android:scaleType="centerCrop"
                 app:loadImage="@{news.imageUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@mipmap/ic_launcher" />
+                android:src="@drawable/placeholder" />
 
             <TextView
                 android:id="@+id/title"
@@ -55,9 +55,10 @@
                 android:id="@+id/content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
                 android:text="@{news.content}"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:textColor="@android:color/secondary_text_dark"
                 app:layout_constraintLeft_toLeftOf="@+id/title"
 
                 app:layout_constraintRight_toRightOf="parent"
@@ -69,10 +70,12 @@
                 android:layout_width="@dimen/_12sdp"
                 android:layout_height="@dimen/_12sdp"
                 android:contentDescription="@string/todo"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
 
                 android:src="@drawable/ic_author"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/content" />
 
             <TextView
@@ -96,9 +99,8 @@
                 android:contentDescription="@string/todo"
 
                 android:src="@drawable/ic_time"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/content" />
+                app:layout_constraintTop_toTopOf="@+id/icon_author" />
 
             <TextView
                 android:id="@+id/time"

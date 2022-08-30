@@ -5,12 +5,12 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class News(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: String,
     val author: String,
     val content: String,
     val date: String,
     val imageUrl: String,
-    val readMoreUrl: String,
+    val readMoreUrl: String?,
     val time: String,
     val title: String,
     val url: String,

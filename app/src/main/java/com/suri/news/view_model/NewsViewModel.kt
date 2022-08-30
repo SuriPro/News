@@ -6,6 +6,13 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import androidx.paging.filter
+import com.suri.news.adapter.NewsListAdapter
+import com.suri.news.adapter.NewsPagingSource
 import com.suri.news.database.AppDatabase
 import com.suri.news.model.News
 import com.suri.news.model.NewsResponse
@@ -16,8 +23,10 @@ import com.suri.news.utils.NetworkUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.*
 
-class NewsViewModel constructor(private val context: Context) : ViewModel() {
+class NewsViewModel(private val context: Context, private val adapter: NewsListAdapter) : ViewModel() {
 
     private val request = ApiClient.buildService(ApiService::class.java)
     private val disposable = CompositeDisposable()
@@ -27,39 +36,27 @@ class NewsViewModel constructor(private val context: Context) : ViewModel() {
 
     val isLoading: ObservableBoolean = ObservableBoolean(false)
 
-    lateinit var tempNews: MutableList<News>
-    var news: MutableLiveData<List<News>> = MutableLiveData()
-
-    val database = AppDatabase.getDatabase(context)
+    private val database = AppDatabase.getDatabase(context)
     private val newsRepository = NewsRepository(database.newsDao())
 
-    var page = 1
+    var data = Pager(
+        PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false,
+            initialLoadSize = 10,
+        ),
+    ) {
+        NewsPagingSource(database.newsDao())
+    }.flow.cachedIn(viewModelScope)
+
 
     init {
         getNews()
     }
 
-    fun onSearchTextChanged(
-        s: CharSequence, start: Int, before: Int,
-        count: Int
-    ) {
-        Log.e("EditText Changed", "" + s)
-        if (s.isNotEmpty()) {
-
-            //new by me
-            news.value = tempNews.filter {
-                it.title.contains(s, true) or it.author.contains(s, true)
-            }
-
-        } else {
-            news.value = tempNews
-        }
-
-    }
-
     private fun getNews() {
-        tempNews = newsRepository.getNews()
-        if (tempNews.isEmpty()) {
+        val count = newsRepository.getNewsCount()
+        if (count==0) {
             if (NetworkUtils(context).isNetworkAvailable()) {
                 isLoading.set(true)
 
@@ -71,25 +68,22 @@ class NewsViewModel constructor(private val context: Context) : ViewModel() {
                 )
             } else
                 error.value = "Check Internet Connection"
-        } else {
-            news.value = tempNews
-            isLoading.set(false)
         }
-
 
     }
 
     private fun handleError(throwable: Throwable) {
+        Log.e("error",""+throwable.message)
         error.value = throwable.message
         isLoading.set(false)
     }
 
     private fun handleResponse(response: NewsResponse) {
         //database insertion
+        print(response.data.size)
         newsRepository.insertNews(response.data)
-        isLoading.set(true)
-        if(response.data.isNotEmpty())
-            getNews();
+        isLoading.set(false)
+        adapter.refresh()
     }
 
 

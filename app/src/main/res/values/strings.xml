@@ -3,4 +3,5 @@
     <string name="search">Search</string>
     <string name="todo">TODO</string>
     <string name="today_news">Today News</string>
+    <string name="no_news_found">No News Found</string>
 </resources>
