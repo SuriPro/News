@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import com.suri.news.R
 import com.suri.news.databinding.ActivityWebviewBinding
 
-class WebviewActivity : AppCompatActivity() {
+class WebViewActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityWebviewBinding;
 

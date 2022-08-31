@@ -13,6 +13,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/root"
+        app:cardBackgroundColor="@color/color_bg_selected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_8sdp"
@@ -45,6 +46,7 @@
                 android:maxLines="2"
                 android:text="@{news.title}"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 app:layout_constraintLeft_toRightOf="@+id/thump"
 
                 app:layout_constraintRight_toRightOf="parent"
@@ -58,7 +60,7 @@
                 android:text="@{news.content}"
                 android:maxLines="3"
                 android:ellipsize="end"
-                android:textColor="@android:color/secondary_text_dark"
+                android:textColor="@color/color_text_selected"
                 app:layout_constraintLeft_toLeftOf="@+id/title"
 
                 app:layout_constraintRight_toRightOf="parent"
@@ -85,6 +87,8 @@
                 android:layout_marginStart="@dimen/_4sdp"
                 android:text="@{news.author}"
                 android:textSize="@dimen/_8sdp"
+                android:textColor="@color/color_text_selected"
+
                 app:layout_constraintBottom_toBottomOf="@+id/icon_author"
 
                 app:layout_constraintLeft_toRightOf="@id/icon_author"
@@ -109,6 +113,8 @@
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:text="@{news.time}"
                 android:textSize="@dimen/_8sdp"
+                android:textColor="@color/color_text_selected"
+
                 app:layout_constraintBottom_toBottomOf="@+id/icon_time"
 
                 app:layout_constraintRight_toLeftOf="@+id/icon_time"

@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.News"
+        android:theme="@style/Theme.App.Starting"
         tools:targetApi="31">
         <activity
             android:name=".activity.NewsActivity"
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.WebviewActivity" />
+        <activity android:name=".activity.WebViewActivity" android:theme="@style/Theme.News"/>
 
         <meta-data
             android:name="preloaded_fonts"

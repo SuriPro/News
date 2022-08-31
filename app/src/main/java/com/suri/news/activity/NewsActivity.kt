@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +29,8 @@ class NewsActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_news)
 
@@ -44,12 +46,8 @@ class NewsActivity : AppCompatActivity() {
             MyViewModelFactory(this, "NEWS_VM", adapter)
         )[NewsViewModel::class.java]
 
-        viewModel.getError().observe(this) {
-            Toast.makeText(applicationContext, it, Toast.LENGTH_LONG).show()
-        }
-
         lifecycleScope.launch {
-            viewModel.data.collectLatest {
+            viewModel.news.collectLatest {
                 adapter.submitData(it)
             }
         }
@@ -60,10 +58,9 @@ class NewsActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.e("EditText Changed", "" + s)
                 val str=s.toString()
                 lifecycleScope.launch {
-                    viewModel.data.collect {
+                    viewModel.news.collect {
 
                         adapter.submitData(if (str.isEmpty()) it else it.filter { news ->
                             news.title.contains(str, true) or news.author.contains(str,true)
@@ -78,7 +75,7 @@ class NewsActivity : AppCompatActivity() {
     }
 
     fun onNewsClicked(url: String) {
-        val intent = Intent(this, WebviewActivity::class.java)
+        val intent = Intent(this, WebViewActivity::class.java)
         intent.putExtra("URL", url)
         startActivity(intent)
     }
