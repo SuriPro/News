@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.News"
+        android:configChanges="orientation|screenSize"
         tools:targetApi="31">
         <activity
             android:name=".activity.NewsActivity"
@@ -27,7 +28,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.WebViewActivity"/>
+        <activity android:name=".activity.WebViewActivity"
+            />
 
         <meta-data
             android:name="preloaded_fonts"

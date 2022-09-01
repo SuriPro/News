@@ -21,3 +21,13 @@ k
 ;app/src/main/java/com/suri/news/view_model/NewsViewModel.kt,1/b/1b2ebb0ed2fe0936e2514c6431c15aaa1c83ffe7
 ^
 .app/src/main/java/com/suri/news/utils/Utils.kt,1/b/1b9ca13188b665da36ba49cc715ccc195b5e3b56
+j
+:app/src/main/java/com/suri/news/adapter/NewsListAdapter.kt,d/8/d8ec7e559f182d30d397d258cf372bd2bed66144
+<
+build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
+?
+settings.gradle,0/5/05efc8b1657769a27696d478ded1e95f38737233
+@
+app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
+h
+8app/src/main/java/com/suri/news/activity/NewsActivity.kt,0/8/08cc53f07ce0fed9b847cda1701f7cea5b755ac8
