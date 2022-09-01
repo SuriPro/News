@@ -41,13 +41,14 @@ class NewsActivity : AppCompatActivity() {
             NewsLoadStateAdapter()
         )
 
+
         viewModel = ViewModelProvider(
             this,
             MyViewModelFactory(this, "NEWS_VM", adapter)
         )[NewsViewModel::class.java]
 
         lifecycleScope.launch {
-            viewModel.news.collectLatest {
+            viewModel.news.collect {
                 adapter.submitData(it)
             }
         }

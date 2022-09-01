@@ -1,6 +1,4 @@
 
-<
-build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
 e
 5app/src/main/java/com/suri/news/model/NewsResponse.kt,5/3/530d5673635ff99fa2713c4349c39198005cc1f3
 X
@@ -9,18 +7,10 @@ e
 5app/src/main/java/com/suri/news/utils/NetworkUtils.kt,7/1/710814dc793e47ca61257dbf8659c9dd614c7132
 e
 5app/src/main/java/com/suri/news/restapi/ApiService.kt,8/d/8de94e410b3cb423542e0365c9adf70752a4d9f9
-j
-:app/src/main/java/com/suri/news/adapter/NewsListAdapter.kt,d/8/d8ec7e559f182d30d397d258cf372bd2bed66144
-@
-app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
-P
- app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
 d
 4app/src/main/java/com/suri/news/restapi/ApiClient.kt,c/1/c1b34aba3847d5001ed46df78f13048764d7950e
 p
 @app/src/main/java/com/suri/news/view_model/MyViewModelFactory.kt,a/c/ac69bd1ec355ad17cb2d25a8546cea759dc617e6
-h
-8app/src/main/java/com/suri/news/activity/NewsActivity.kt,0/8/08cc53f07ce0fed9b847cda1701f7cea5b755ac8
 ^
 .app/src/main/java/com/suri/news/dao/NewsDao.kt,8/3/83f640a3b432d349a892fdb4521911b73fac51f1
 k

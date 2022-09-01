@@ -53,14 +53,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Part of Noida-Greater Noida Expressway caves in, video surfaces" />
 
-            <com.suri.news.utils.ExpandableTextView
+            <io.github.giangpham96.expandabletextview.ExpandableTextView
                 android:id="@+id/content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{news.content}"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:textColor="@color/color_text_selected"
+                app:expandableText="@{news.content}"
+                app:expandCta="More"
+                android:textColor="@color/grey"
                 app:layout_constraintLeft_toLeftOf="@+id/title"
 
                 app:layout_constraintRight_toRightOf="parent"
@@ -87,7 +86,7 @@
                 android:layout_marginStart="@dimen/_4sdp"
                 android:text="@{news.author}"
                 android:textSize="@dimen/_8sdp"
-                android:textColor="@color/color_text_selected"
+                android:textColor="@color/grey"
 
                 app:layout_constraintBottom_toBottomOf="@+id/icon_author"
 
@@ -113,7 +112,7 @@
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:text="@{news.time}"
                 android:textSize="@dimen/_8sdp"
-                android:textColor="@color/color_text_selected"
+                android:textColor="@color/grey"
 
                 app:layout_constraintBottom_toBottomOf="@+id/icon_time"
 
