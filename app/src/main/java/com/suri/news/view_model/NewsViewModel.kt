@@ -42,7 +42,6 @@ class NewsViewModel(private val context: Context, private val adapter: NewsListA
         NewsPagingSource(database.newsDao())
     }.flow.cachedIn(viewModelScope)
 
-
     init {
         getNews()
     }
@@ -66,7 +65,7 @@ class NewsViewModel(private val context: Context, private val adapter: NewsListA
                     request.getNewsByCategory("all")
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
-                        .subscribe(this::handleResponse, this::handleError)
+                        .subscribe(::handleResponse, ::handleError)
                 )
 
             } else

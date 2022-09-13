@@ -8,8 +8,8 @@ import com.suri.news.adapter.NewsListAdapter
 
 class MyViewModelFactory(
     private val context: Context,
-    val tag: String,
-    val adapter : NewsListAdapter
+    private val tag: String,
+    private val adapter : NewsListAdapter
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

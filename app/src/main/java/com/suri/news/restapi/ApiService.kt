@@ -12,5 +12,4 @@ interface ApiService {
     @GET("news")
     fun getNewsByCategory(@Query("category") category: String): Flowable<NewsResponse>
 
-
 }

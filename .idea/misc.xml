@@ -15,7 +15,7 @@
         <entry key="app/src/main/res/layout/activity_news.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_webview.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/load_item.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/news_item.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/news_item.xml" value="0.33" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.238" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.238" />
       </map>
